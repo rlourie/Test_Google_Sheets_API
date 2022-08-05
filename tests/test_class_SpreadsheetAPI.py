@@ -1,5 +1,4 @@
-import pytest
-from ss import SpreadsheetAPI
+from tests.Functions.ss import SpreadsheetAPI
 
 
 class Test:
