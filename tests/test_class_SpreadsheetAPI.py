@@ -142,3 +142,67 @@ class Test:
         sheet = self.Test_instance.get('A1:D2')
         self.Test_instance.clear('A1:E2')
         assert sheet['values'] == self.test_ar
+
+    # insert
+    # Вставка большего массива в меньший диапазон
+    def test_18(self):
+        ins = self.Test_instance.insert(self.test_ar, 'A', 'C')
+        self.Test_instance.clear('A1:D2')
+        assert ins is False
+
+    # clear
+    # Удаление страницы полностью
+    def test_19(self):
+        ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
+        cl = self.Test_instance.clear(self.sheet_title)
+        sheet = self.Test_instance.get_sheet()
+        assert 'values' not in sheet
+
+    # clear
+    # Удаление диапазона
+    def test_20(self):
+        ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
+        cl = self.Test_instance.clear('C1:D2')
+        sheet = self.Test_instance.get_sheet()
+        cl = self.Test_instance.clear('A1:D2')
+        assert sheet['values'] == [['1', 'test'], ['1']]
+
+    # clear
+    # Удаление одной ячейки
+    def test_21(self):
+        ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
+        cl = self.Test_instance.clear('A1')
+        sheet = self.Test_instance.get_sheet()
+        cl = self.Test_instance.clear('A1:D2')
+        assert sheet['values'] == [['', 'test', '3', '4'], ['1', '', '3', '4']]
+
+    # clear
+    # Удаление не реального листа
+    def test_22(self):
+        try:
+            self.Test_instance.clear('Лист2')
+        except Exception as e:
+            a = e
+        assert a.reason == 'Unable to parse range: Лист2'
+
+    # clear
+    # Удаление не реального диапазона
+    def test_23(self):
+        try:
+            self.Test_instance.clear('Л1:K1')
+        except Exception as e:
+            a = e
+        assert a.reason == 'Unable to parse range: Л1:K1'
+
+    # clear
+    # Удаление с диапазоном наоборот.
+    def test_24(self):
+        ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
+        cl = self.Test_instance.clear('D2:A1')
+        sheet = self.Test_instance.get_sheet()
+        assert 'values' not in sheet
+
+    # get_sheet_url
+    # Генерация
+    def test_25(self):
+        assert self.Test_instance.get_sheet_url() == 'https://docs.google.com/spreadsheets/d/' + self.spreadsheet_id + '/edit#gid=' + self.sheet_id
