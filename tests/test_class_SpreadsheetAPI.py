@@ -1,4 +1,4 @@
-from tests.Functions.ss import SpreadsheetAPI
+from Functions.ss import SpreadsheetAPI
 
 
 class Test:
