@@ -1,6 +1,7 @@
 from pprint import pprint
-import httplib2
+
 import apiclient
+import httplib2
 from oauth2client.service_account import ServiceAccountCredentials
 
 from functions.funcs import get_range, get_body_insert
@@ -79,13 +80,3 @@ class SpreadsheetAPI:
         :return: ссылка на таблицу
         """
         return 'https://docs.google.com/spreadsheets/d/' + self.spreadsheet_id + '/edit#gid=' + str(self.sheet_id)
-
-
-# spreadsheet_id = "1Lgo3zaNTP2yOf1T-U-K4BSss04U6McTBPRMGVQtTNE4"
-# sheet_title = "Лист1"
-# sheet_id = "0"
-# credentials = 'tests-358414-baea7a149cfb.json'
-# apis = 'https://www.googleapis.com/auth/spreadsheets'
-# First_try = SpreadsheetAPI(spreadsheet_id, sheet_title, sheet_id, credentials, apis)
-# a = First_try.insert([[1, 'test', 3, 4], [1, '', 3, 4]], 'A', 'D')
-# print(a)

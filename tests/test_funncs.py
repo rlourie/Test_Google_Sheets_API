@@ -1,8 +1,7 @@
-import pytest
 import allure
-from allure_commons.types import AttachmentType
-from functions.funcs import get_range
+
 from functions.funcs import get_body_insert
+from functions.funcs import get_range
 
 
 class Test:
@@ -14,13 +13,11 @@ class Test:
                  "values": 0}
             ]}
 
-    # get_body_insert
     @allure.feature('get_body_insert')
     @allure.story('Проверяем схему с аргументами 0, 0')
     def test_01(self):
         assert get_body_insert(0, 0) == self.test_ins
 
-    # get_body_insert
     @allure.feature('get_body_insert')
     @allure.story('Проверяем схему с аргументами 1000000000, 10000000000')
     def test_02(self):
@@ -29,7 +26,6 @@ class Test:
         a['data'][0]['values'] = 10000000000
         assert get_body_insert(1000000000, 10000000000) == a
 
-    # get_body_insert
     @allure.feature('get_body_insert')
     @allure.story('Проверяем схему с аргументами A1:B4, test')
     def test_03(self):
@@ -38,7 +34,6 @@ class Test:
         a['data'][0]['values'] = 'test'
         assert get_body_insert('A1:B4', 'test') == a
 
-    # get_body_insert
     @allure.feature('get_body_insert')
     @allure.story('Проверяем схему с пустыми аргументами')
     def test_04(self):
@@ -47,29 +42,21 @@ class Test:
         a['data'][0]['values'] = None
         assert get_body_insert(None, None) == a
 
-    # get_range
-    # Есть и старт и конец
     @allure.feature('get_range')
     @allure.story('Проверяем если есть и старт и конец')
     def test_05(self):
         assert get_range('A', 'B', 'Test') == 'Test!A:B'
 
-    # get_range
-    # Нету старта
     @allure.feature('get_range')
     @allure.story('Проверяем если нету старта')
     def test_06(self):
         assert get_range(None, 'B', 'Test') == 'Test!A:B'
 
-    # get_range
-    # Нету конца
     @allure.feature('get_range')
     @allure.story('Проверяем если нету конца')
     def test_07(self):
         assert get_range('A', None, 'Test') == 'Test!A:Z'
 
-    # get_range
-    # Нету старта и конца
     @allure.feature('get_range')
     @allure.story('Проверяем если нету старта и конца')
     def test_08(self):
