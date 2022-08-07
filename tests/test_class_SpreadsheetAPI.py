@@ -1,3 +1,4 @@
+import urllib.error
 from Functions.ss import SpreadsheetAPI
 import pytest
 
@@ -179,6 +180,7 @@ class Test:
     # clear
     # Удаление не реального листа
     def test_22(self):
+        a = urllib.error.HTTPError
         try:
             self.Test_instance.clear('Лист2')
         except Exception as e:
@@ -188,6 +190,7 @@ class Test:
     # clear
     # Удаление не реального диапазона
     def test_23(self):
+        a = urllib.error.HTTPError
         try:
             self.Test_instance.clear('Л1:K1')
         except Exception as e:
