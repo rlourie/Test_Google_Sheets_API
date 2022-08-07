@@ -1,5 +1,5 @@
 import urllib.error
-from Functions.ss import SpreadsheetAPI
+from functions.ss import SpreadsheetAPI
 import pytest
 
 
@@ -136,8 +136,16 @@ class Test:
         assert sheet['values'] == [['', '1', 'test', '3', '4'], ['', '1', '', '3', '4']]
 
     # insert
-    # Вставка в заполненные ячейки
+    # Вставка без указания конца и начала но с указанием страницы
     def test_17(self):
+        ins = self.Test_instance.insert(self.test_ar, None, None, 'Лист1')
+        sheet = self.Test_instance.get_sheet()
+        self.Test_instance.clear('A1:D2')
+        assert sheet['values'] == self.test_ar
+
+    # insert
+    # Вставка в заполненные ячейки
+    def test_18(self):
         ins = self.Test_instance.insert(self.test_ar, 'B', 'E')
         ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
         sheet = self.Test_instance.get('A1:D2')
@@ -146,14 +154,14 @@ class Test:
 
     # insert
     # Вставка большего массива в меньший диапазон
-    def test_18(self):
+    def test_19(self):
         ins = self.Test_instance.insert(self.test_ar, 'A', 'C')
         self.Test_instance.clear('A1:D2')
         assert ins is False
 
     # clear
     # Удаление страницы полностью
-    def test_19(self):
+    def test_20(self):
         ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
         cl = self.Test_instance.clear(self.sheet_title)
         sheet = self.Test_instance.get_sheet()
@@ -161,7 +169,7 @@ class Test:
 
     # clear
     # Удаление диапазона
-    def test_20(self):
+    def test_21(self):
         ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
         cl = self.Test_instance.clear('C1:D2')
         sheet = self.Test_instance.get_sheet()
@@ -170,7 +178,7 @@ class Test:
 
     # clear
     # Удаление одной ячейки
-    def test_21(self):
+    def test_22(self):
         ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
         cl = self.Test_instance.clear('A1')
         sheet = self.Test_instance.get_sheet()
@@ -179,7 +187,7 @@ class Test:
 
     # clear
     # Удаление не реального листа
-    def test_22(self):
+    def test_23(self):
         a = urllib.error.HTTPError
         try:
             self.Test_instance.clear('Лист2')
@@ -189,7 +197,7 @@ class Test:
 
     # clear
     # Удаление не реального диапазона
-    def test_23(self):
+    def test_24(self):
         a = urllib.error.HTTPError
         try:
             self.Test_instance.clear('Л1:K1')
@@ -199,7 +207,7 @@ class Test:
 
     # clear
     # Удаление с диапазоном наоборот.
-    def test_24(self):
+    def test_25(self):
         ins = self.Test_instance.insert(self.test_ar, 'A', 'D')
         cl = self.Test_instance.clear('D2:A1')
         sheet = self.Test_instance.get_sheet()
@@ -207,5 +215,5 @@ class Test:
 
     # get_sheet_url
     # Генерация
-    def test_25(self):
+    def test_26(self):
         assert self.Test_instance.get_sheet_url() == 'https://docs.google.com/spreadsheets/d/' + self.spreadsheet_id + '/edit#gid=' + self.sheet_id

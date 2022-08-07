@@ -3,7 +3,7 @@ import httplib2
 import apiclient
 from oauth2client.service_account import ServiceAccountCredentials
 
-from Functions.funcs import get_range, get_body_insert
+from functions.funcs import get_range, get_body_insert
 
 
 class SpreadsheetAPI:
