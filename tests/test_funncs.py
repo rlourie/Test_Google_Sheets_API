@@ -61,3 +61,8 @@ class Test:
     @allure.story('Проверяем если нету старта и конца')
     def test_08(self):
         assert get_range(None, None, 'Test') == 'Test'
+
+    @allure.feature('get_range')
+    @allure.story('Проверяем если нету старта и конца и нету названия старницы')
+    def test_09(self):
+        assert get_range(None, None, None) is None
